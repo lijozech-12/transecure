@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Register</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+	</head>
+	<body>
+		<div class="register">
+			<h1>Pay</h1>
+
+			<form action="{{ url_for('maketransaction') }}" method="post" autocomplete="off">
+				<label for="recipient">
+					<i class="fas fa-user"></i>
+				</label>
+				<input type="text" name="recipient" placeholder="Recipient" id="recipient" required>
+				<label for="amount">
+					<i class="fas fa-money"></i>
+				</label>
+				<input type="amount" name="amount" placeholder="Amount" id="amount" required>			
+				<input type="submit" value="Confirm Transaction">
+			</form>
+		</div>
+	</body>
+</html>
