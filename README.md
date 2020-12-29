@@ -1,3 +1,81 @@
 
 # Transecure
 Decentralized intra company transaction management system to ensure that all transactions are transparent and all finances are accounted for
+
+
+Description:
+
+    Transecure is decentralized intracompany transaction management system to ensure that all transactions are transparent and all
+    finances are accounted for which is realized by using Blockchain Technology
+
+    What we Do:
+
+    1.    Creating a portal for all company transactions to be done.
+    2.    All transactions are confirmed at specific times throughout the day.
+    3.    Each transaction is verified before being commited.
+    4.    All transactions stay in the blockchain at all times.
+    5.    All transactions can be traced back hence reduces fraudulency.
+    6.    If there's a fraudulent transaction it immediately gets flagged as an impossible transaction.
+
+Contents of project Directory:
+
+    Transecure:
+        BlockchainCode:
+            static:
+                content: 
+                    bootstrap.css 
+                    bootstrap.min.css
+                    site.css
+                font 
+                scripts
+            templates:
+                about.html
+                contact.html
+                index.html
+                layout.html
+            utility
+            app.py 
+            block.py 
+            blockchain.py 
+            node_console.py
+            transaction.py
+            wallet.py
+        TransecureAPP:
+            static:
+                style.css
+            templates:
+                home.html
+                index.html
+                layout.html
+                profile.html
+                registe.html
+                transaction.html
+            app.py
+        BrocodeclanPPT.pdf
+        BrocodeclanTEXT.txt 
+
+
+Ways to host the project on the localhost:
+    
+    #To start app server with 2 nodes in the blockchain#
+
+    Open the terminal and Navigate to the 'BlockchainCode' directory then run below command
+
+    " python transecure/app.py & python BlockchainApp/app.py -p 8000 & python BlockchainApp/app.py -p 8001 "
+
+    Then navigate to 'TransecureAPP' directory then run below command
+
+    " python app.py " #it will start running on port no 5000
+
+    
+NOTE: Our project is not complete linking between two API's and some frontend work's are left.
+
+
+
+
+            
+        
+        
+            
+
+                    
