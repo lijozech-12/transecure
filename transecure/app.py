@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
-import requests
 
 app = Flask(__name__)
 
@@ -11,12 +10,12 @@ app.secret_key = 'your secret key'
 
 # Enter your database connection details below
 app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'project'
-app.config['MYSQL_PASSWORD'] = 'joespear'
-app.config['MYSQL_DB'] = 'myflaskapp'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'kl41a5465'
+app.config['MYSQL_DB'] = 'pythonlogin'
 
 # Intialize MySQL
-mysql = MySQL(app)  
+mysql = MySQL(app)
 
 # http://localhost:5000/pythonlogin/ - this will be the login page, we need to use both GET and POST requests
 @app.route('/pythonlogin/', methods=['GET', 'POST'])
@@ -69,7 +68,6 @@ def register():
         username = request.form['username']
         password = request.form['password']
         email = request.form['email']
-        node_id = request.form['node_id']
         
         # Check if account exists using MySQL
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -87,7 +85,7 @@ def register():
             msg = 'Please fill out the form!'
         else:
             # Account doesnt exists and the form data is valid, now insert new account into accounts table
-            cursor.execute('INSERT INTO accounts VALUES (NULL, %s, %s, %s, %s)', (username, password, email, node_id))
+            cursor.execute('INSERT INTO accounts VALUES (NULL, %s, %s, %s)', (username, password, email,))
             mysql.connection.commit()
             msg = 'You have successfully registered!'
     elif request.method == 'POST':
@@ -99,7 +97,7 @@ def register():
 
 
 # http://localhost:5000/pythinlogin/home - this will be the home page, only accessible for loggedin users
-@app.route('/home')
+@app.route('/pythonlogin/home')
 def home():
     # Check if user is loggedin
     if 'loggedin' in session:
@@ -110,7 +108,7 @@ def home():
 
 
 # http://localhost:5000/pythinlogin/profile - this will be the profile page, only accessible for loggedin users
-@app.route('/profile')
+@app.route('/pythonlogin/profile')
 def profile():
     # Check if user is loggedin
     if 'loggedin' in session:
@@ -123,26 +121,10 @@ def profile():
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
 
-@app.route('/maketransaction', methods=['GET', 'POST'])
-def maketransaction():
-    if 'loggedin' in session:
 
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM accounts WHERE id = %s', (session['id'],))
-        account = cursor.fetchone()
-        data = dict()
-        if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
-            # Create variables for easy access
-            data['recipient'] = request.form['recipient']
-            data['amount'] = request.form['amount']
-        elif request.method == 'POST':
-        # Form is empty... (no POST data)
-            msg = 'Please fill out the form!'
-
-        requests.post(url = f'http://0.0.0.0:{account['node_id']}', data = data)
-        return render_template('transaction.html')
-    
-    return redirect(url_for('login'))
+@app.route('/pythonlogin/transaction')
+def transaction():
+    return render_template('transaction.html')
 
 if __name__=="__main__":
     app.secret_key = 'secret123'
